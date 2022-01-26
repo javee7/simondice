@@ -3,6 +3,12 @@ const Rojo = document.getElementById("Rojo");
 const Verde = document.getElementById("Verde");
 const Azul = document.getElementById("Azul");
 const Amarillo = document.getElementById("Amarillo");
+let audio = document.getElementById("audio");
+let audioboton1 = document.getElementById("audio1");
+let audioboton2 = document.getElementById("audio2");
+let audioboton3 = document.getElementById("audio3");
+let audioboton4 = document.getElementById("audio4");
+
 
 let Start = 0;
 let SecuenciaMaquina;
@@ -51,7 +57,9 @@ function CRojo(){
   if(Start)
   {
     SecuenciaUser += NROJO
+    audioboton1.play();
     Secuencia(ComprobarValor());
+    
   }
   else{
     alert("Juego no iniciado");
@@ -63,7 +71,9 @@ function CVerde(){
   if(Start)
   {
     SecuenciaUser += NVERDE
+    audioboton2.play();
     Secuencia(ComprobarValor());
+    
   }
   else{
     alert("Juego no iniciado");
@@ -74,7 +84,9 @@ function CAmarillo(){
   if(Start)
   {
     SecuenciaUser += NAMARILLO
+    audioboton3.play();
     Secuencia(ComprobarValor());
+    
   }
   else{
     alert("Juego no iniciado");
@@ -85,7 +97,9 @@ function CAzul(){
   if(Start)
   {
     SecuenciaUser += NAZUL
+    audioboton4.play();
     Secuencia(ComprobarValor());
+    
   }
   else{
     alert("Juego no iniciado");
@@ -99,6 +113,7 @@ function EjecutarSecuencia(){
       setTimeout(1000);
       Rojo.style.brightness = 1;
       alert("Rojo")
+      
     }
 
     if(SecuenciaMaquina[i] == 1){
@@ -106,6 +121,7 @@ function EjecutarSecuencia(){
       setTimeout(1000);
       Verde.style.brightness = 1;
       alert("Verde")
+     
     }
 
     if(SecuenciaMaquina[i] == 2){
@@ -113,6 +129,7 @@ function EjecutarSecuencia(){
       setTimeout(1000);
       Azul.style.brightness = 1;
       alert("Azul")
+      
     }
 
     if(SecuenciaMaquina[i] == 3){
@@ -120,6 +137,7 @@ function EjecutarSecuencia(){
       setTimeout(1000);
       Amarillo.style.brightness = 1;
       alert("Amarillo")
+     
     }
   }
 }
@@ -137,6 +155,7 @@ function Secuencia(){
     }
   }
   if(Perdio == 10){
+    audio.play();
     alert("Perdiste!!");
     Start = 0;
   }
