@@ -3,7 +3,12 @@ const Rojo = document.getElementById("Rojo");
 const Verde = document.getElementById("Verde");
 const Azul = document.getElementById("Azul");
 const Amarillo = document.getElementById("Amarillo");
-const Ronda = document.getElementById("Round")
+const Ronda = document.getElementById("Round");
+let audio = document.getElementById("audio");
+let audioboton1 = document.getElementById("audio1");
+let audioboton2 = document.getElementById("audio2");
+let audioboton3 = document.getElementById("audio3");
+let audioboton4 = document.getElementById("audio4");
 
 let Start = 0;
 let SecuenciaMaquina;
@@ -60,6 +65,7 @@ function CRojo(){
   if(Start)
   {
     SecuenciaUser += NROJO
+    audioboton1.play();
     Secuencia(ComprobarValor());
   }
   else{
@@ -70,6 +76,7 @@ function CVerde(){
   if(Start)
   {
     SecuenciaUser += NVERDE
+    audioboton2.play();
     Secuencia(ComprobarValor());
   }
   else{
@@ -80,6 +87,7 @@ function CAmarillo(){
   if(Start)
   {
     SecuenciaUser += NAMARILLO
+    audioboton3.play();
     Secuencia(ComprobarValor());
   }
   else{
@@ -90,6 +98,7 @@ function CAzul(){
   if(Start)
   {
     SecuenciaUser += NAZUL
+    audioboton4.play();
     Secuencia(ComprobarValor());
   }
   else{
@@ -145,6 +154,7 @@ function Secuencia(){
     }
   }
   if(Perdio == 10){
+    audio.play();
     alert(`Perdiste en ronda ${SecuenciaMaquina.length}!!`, );
     Start = 0;
   }
