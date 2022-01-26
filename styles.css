@@ -93,4 +93,22 @@ body{
     position: absolute;
     top: 350px;
     width: max-content;
-}    
+}   
+
+/*SONIDOS*/
+
+#audio{
+    display: none;
+}
+#audio1{
+    display: none;
+}
+#audio2{
+    display: none;
+}
+#audio3{
+    display: none;
+}
+#audio4{
+    display: none;
+}
