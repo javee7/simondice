@@ -4,6 +4,7 @@ const Verde = document.getElementById("Verde");
 const Azul = document.getElementById("Azul");
 const Amarillo = document.getElementById("Amarillo");
 const Ronda = document.getElementById("Round");
+const Cuadro = document.querySelector(".button-container");
 let audio = document.getElementById("audio");
 let audioboton1 = document.getElementById("audio1");
 let audioboton2 = document.getElementById("audio2");
@@ -56,6 +57,7 @@ function CondicionInicial(){
   Verde.style.backgroundColor = "green";
   Azul.style.backgroundColor = "blue";
   Amarillo.style.backgroundColor = "yellow";
+  Cuadro.style.transform = `rotate(45deg)`;
 }
 
 /**
@@ -175,6 +177,15 @@ function Secuencia(){
   else if (SecuenciaMaquina.length == SecuenciaUser.length) {
       SecuenciaMaquina += CreateSequence(SecuenciaMaquina);
       Ronda.innerHTML = `Ronda: ${SecuenciaMaquina.length}`;
+      if(( (SecuenciaMaquina.length % 5) == 0)){
+        Cuadro.style.transform = `rotate(135deg)`;
+      }
+      else if(( (SecuenciaMaquina.length % 7) == 0)){
+        Cuadro.style.transform = `rotate(225deg)`;
+      }
+      else if(( (SecuenciaMaquina.length % 12) == 0)){
+        Cuadro.style.transform = `rotate(315deg)`;
+      }
       setTimeout(nIntervId = setInterval(EjecutarSecuencia, 750), 2000);
       SecuenciaUser = [];
       PRIMERA = 0;
