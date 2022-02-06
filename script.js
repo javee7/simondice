@@ -19,6 +19,10 @@ let NAZUL = 2;
 let NAMARILLO = 3;
 let Perdio = 0;
 
+let SecuenciaActual = 0;
+let EstadoActual = 0;
+let nIntervId;
+
 Start_button.addEventListener("click", StartGAME);
 Rojo.addEventListener("click", CRojo);
 Verde.addEventListener("click", CVerde);
@@ -36,18 +40,6 @@ function CreateSequence(sequence){
 }
 
 /**
- * Compara strings 
- */
-function strcmp(a, b)
-{   
-    for(let i = 0; i < a.length; i++){
-       if (a[i] != b[i]){
-          return 0;
-       }
-    }
-    return 1;  
-}
-/**
  * Inicia el juego
  */
 function StartGAME(){
@@ -55,7 +47,15 @@ function StartGAME(){
   Perdio = 0;
   SecuenciaUser = [];
   SecuenciaMaquina = [];
-  Secuencia()
+  CondicionInicial();
+  Secuencia();
+}
+
+function CondicionInicial(){
+  Rojo.style.backgroundColor = "red";
+  Verde.style.backgroundColor = "green";
+  Azul.style.backgroundColor = "blue";
+  Amarillo.style.backgroundColor = "yellow";
 }
 
 /**
@@ -106,35 +106,59 @@ function CAzul(){
   }
 }
 
-/**
- * Ejecuta la secuencia guardada en SecuenciaMaquina[]
- */
 function EjecutarSecuencia(){
-  for(let i = 0; i < SecuenciaMaquina.length; i++){
-    if(SecuenciaMaquina[i] == 0){
-      //Rojo.style.backgroundColor = "black";
-      //Rojo.style.backgroundColor = "red";
-      alert("Rojo")
+    if(SecuenciaMaquina[SecuenciaActual] == 0 && EstadoActual == 0){
+      audioboton1.play();
+      Rojo.style.backgroundColor = "darkred";
+      EstadoActual = 1;
     }
 
-    if(SecuenciaMaquina[i] == 1){
-      //Verde.style.backgroundColor = "black";
-      //Verde.style.backgroundColor = "green";
-      alert("Verde")
+    else if(SecuenciaMaquina[SecuenciaActual] == 1 && EstadoActual == 0){
+      audioboton2.play();
+      Verde.style.backgroundColor = "darkgreen";
+      EstadoActual = 1;
     }
 
-    if(SecuenciaMaquina[i] == 2){
-      //Azul.style.backgroundColor = "black";
-      //Azul.style.backgroundColor = "blue"; 
-      alert("Azul")
+    else if(SecuenciaMaquina[SecuenciaActual] == 2 && EstadoActual == 0){
+      audioboton4.play();
+      Azul.style.backgroundColor = "darkblue";
+      EstadoActual = 1;
     }
 
-    if(SecuenciaMaquina[i] == 3){
-      //Amarillo.style.backgroundColor = "black";
-      //Amarillo.style.backgroundColor = "yellow";
-      alert("Amarillo")
+    else if(SecuenciaMaquina[SecuenciaActual] == 3 && EstadoActual == 0){
+      audioboton3.play();
+      Amarillo.style.backgroundColor = "gold";
+      EstadoActual = 1;
     }
-  }
+
+    else if(SecuenciaMaquina[SecuenciaActual] == 0 && EstadoActual == 1){
+      Rojo.style.backgroundColor = "red";
+      SecuenciaActual +=1;
+      EstadoActual = 0;
+    }
+
+    else if(SecuenciaMaquina[SecuenciaActual] == 1 && EstadoActual == 1){
+      Verde.style.backgroundColor = "green";
+      SecuenciaActual +=1;
+      EstadoActual = 0;
+    }
+
+    else if(SecuenciaMaquina[SecuenciaActual] == 2 && EstadoActual == 1){
+      Azul.style.backgroundColor = "blue";
+      SecuenciaActual +=1;
+      EstadoActual = 0;
+    }
+
+    else if(SecuenciaMaquina[SecuenciaActual] == 3 && EstadoActual == 1){
+      Amarillo.style.backgroundColor = "yellow";
+      SecuenciaActual +=1;
+      EstadoActual = 0;
+    }
+
+    if (SecuenciaActual >= SecuenciaMaquina.length){
+      clearInterval(nIntervId);
+      SecuenciaActual = 0;
+    }
 }
 
 /**
@@ -142,35 +166,25 @@ function EjecutarSecuencia(){
  */
 
 function Secuencia(){
-  if (SecuenciaMaquina.length == SecuenciaUser.length) {
-    if(strcmp(SecuenciaMaquina,SecuenciaUser)){
-      SecuenciaMaquina += CreateSequence(SecuenciaMaquina);
-      Ronda.innerHTML = `Ronda: ${SecuenciaMaquina.length}`;
-      EjecutarSecuencia(SecuenciaMaquina);
-      SecuenciaUser = [];
-    }
-    else {
-      Perdio = 10;
-    }
-  }
   if(Perdio == 10){
     audio.play();
-    alert(`Perdiste en ronda ${SecuenciaMaquina.length}!!`, );
+    alert(`Perdiste en ronda ${SecuenciaMaquina.length}!!`);
+    clearInterval(nIntervId);
     Start = 0;
   }
-
+  else if (SecuenciaMaquina.length == SecuenciaUser.length) {
+      SecuenciaMaquina += CreateSequence(SecuenciaMaquina);
+      Ronda.innerHTML = `Ronda: ${SecuenciaMaquina.length}`;
+      setTimeout(nIntervId = setInterval(EjecutarSecuencia, 750), 2000);
+      SecuenciaUser = [];
+      PRIMERA = 0;
+  }
 }
 
 /**
  * Comprueba si el valor ingresado por usuario es igual que el ingresado por la maquina
  */
 function ComprobarValor(){ 
-  for(let i = 0; i < SecuenciaUser.length; i++){
-    if(SecuenciaUser[i] != SecuenciaMaquina[i]){
-      Perdio = 10;
-      return
-    }
-  }
-  Perdio = 0
+  SecuenciaMaquina.startsWith(SecuenciaUser) ? Perdio = 0 : Perdio = 10;
   return;
 }
